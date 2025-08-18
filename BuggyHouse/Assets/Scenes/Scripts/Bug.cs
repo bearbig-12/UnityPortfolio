@@ -14,7 +14,7 @@ public class BugMovement : MonoBehaviour
     public GameObject splashPrefab; // 스플래쉬 에니메이션 프리팹
 
     [Header("벌레 사운드 효과")]
-    public AudioClip deathSFX;   // 벌레 죽는 소리
+    public AudioClip deathSoundEffect;   // 벌레 죽는 소리
     private AudioSource audioSource;
 
 
@@ -79,9 +79,9 @@ public class BugMovement : MonoBehaviour
 
                 // 애니메이터 전환
                 animator.SetBool("IsClicked", true);
-                if(deathSFX != null)
+                if(deathSoundEffect != null)
                 {
-                    audioSource.PlayOneShot(deathSFX);
+                    audioSource.PlayOneShot(deathSoundEffect);
                 }
                 
                 // 킬카운트 추가
