@@ -1,13 +1,13 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class BGMManager : MonoBehaviour
 {
-    private static BGMManager instance;  // ½Ì±ÛÅæ ÀÎ½ºÅÏ½º
+    private static BGMManager instance;  // ì‹±ê¸€í†¤ ì¸ìŠ¤í„´ìŠ¤
     public AudioSource audioSource;
 
     void Awake()
     {
-        // SceneÀÌ ¹Ù²î¾îµµ ¿ÀºêÁ§Æ®°¡ ÆÄ±«µÇÁö ¾Êµµ·Ï ¼³Á¤
+        // Sceneì´ ë°”ë€Œì–´ë„ ì˜¤ë¸Œì íŠ¸ê°€ íŒŒê´´ë˜ì§€ ì•Šë„ë¡ ì„¤ì •
         if (instance == null)
         {
             instance = this;
@@ -15,7 +15,7 @@ public class BGMManager : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject); // ÀÌ¹Ì ÀÖÀ¸¸é Áßº¹ Á¦°Å
+            Destroy(gameObject); // ì´ë¯¸ ìˆìœ¼ë©´ ì¤‘ë³µ ì œê±°
             return;
         }
     }
@@ -24,18 +24,18 @@ public class BGMManager : MonoBehaviour
     {
         if (audioSource != null && !audioSource.isPlaying)
         {
-            audioSource.loop = true; // ÀÚµ¿ ¹İº¹
-            audioSource.Play();      // ÀÚµ¿ Àç»ı
+            audioSource.loop = true; // ìë™ ë°˜ë³µ
+            audioSource.Play();      // ìë™ ì¬ìƒ
         }
     }
 
-    // BGM ¸ØÃß±â
+    // BGM ë©ˆì¶”ê¸°
     public void StopBGM()
     {
         if (audioSource.isPlaying)
             audioSource.Stop();
     }
-    // º¼·ı Á¶Àı (0~1)
+    // ë³¼ë¥¨ ì¡°ì ˆ (0~1)
     public void SetVolume(float value)
     {
         audioSource.volume = Mathf.Clamp01(value);

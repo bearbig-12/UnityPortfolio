@@ -83,7 +83,7 @@ public class GameMode : MonoBehaviour
     {
         isGameOver = true;
         Debug.Log("Game Over! 총 처치 수 : " + killCount);
-        // TODO: 게임오버 UI 띄우기
+        //게임오버 UI 띄우기
         if(gameOverUI != null)
         {
             gameOverUI.SetActive(true);
