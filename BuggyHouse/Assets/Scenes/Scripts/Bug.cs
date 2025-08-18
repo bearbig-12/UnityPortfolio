@@ -1,22 +1,31 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BugMovement : MonoBehaviour
 {
-    public float moveSpeed = 1f;       // ÀÌµ¿ ¼Óµµ
+    [Header("ë²Œë ˆ ì„¤ì •")]
+    public float moveSpeed = 1f;       // ì´ë™ ì†ë„
     public bool IsDead = false;    
-    public float rotationAngle = 45f;  // È¸Àü °¢µµ
-    public float rotationInterval = 0.5f; // ¸î ÃÊ¸¶´Ù ¹æÇâ ¹Ù²ÜÁö
+    public float rotationAngle = 45f;  // íšŒì „ ê°ë„
+    public float rotationInterval = 0.5f; // ëª‡ ì´ˆë§ˆë‹¤ ë°©í–¥ ë°”ê¿€ì§€
     private float timer = 0f;
     private Animator animator;
+    public GameObject splashPrefab; // ìŠ¤í”Œë˜ì‰¬ ì—ë‹ˆë©”ì´ì…˜ í”„ë¦¬íŒ¹
 
-    public GameObject splashPrefab; // ½ºÇÃ·¡½¬ ¿¡´Ï¸ŞÀÌ¼Ç ÇÁ¸®ÆÕ
+    [Header("ë²Œë ˆ ì‚¬ìš´ë“œ íš¨ê³¼")]
+    public AudioClip deathSFX;   // ë²Œë ˆ ì£½ëŠ” ì†Œë¦¬
+    private AudioSource audioSource;
 
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
+    }
+    private void Start()
+    {
+        // ì˜¤ë¸Œì íŠ¸ì— AudioSource ìë™ ì¶”ê°€ (ì—†ìœ¼ë©´)
+        audioSource = gameObject.AddComponent<AudioSource>();
     }
     // Update is called once per frame
     void Update()
@@ -43,7 +52,7 @@ public class BugMovement : MonoBehaviour
                 transform.Rotate(0f, 0f, dir * rotationAngle);
             }
 
-            // È­¸é ¹ÛÀ¸·Î ³ª°¡¸é ¿ÀºêÁ§Æ® »èÁ¦
+            // í™”ë©´ ë°–ìœ¼ë¡œ ë‚˜ê°€ë©´ ì˜¤ë¸Œì íŠ¸ ì‚­ì œ
             if (transform.position.x < -8f || transform.position.x > 8f ||
                 transform.position.y < -6f || transform.position.y > 6f)
             {
@@ -52,14 +61,14 @@ public class BugMovement : MonoBehaviour
         }
         if(GameMode.Instance.isGameOver == true)
         {
-            // °ÔÀÓ ¿À¹ö µÇ¸é ¿¡´Ï¸ŞÀÌÅÍ ¸ØÃß±â
+            // ê²Œì„ ì˜¤ë²„ ë˜ë©´ ì—ë‹ˆë©”ì´í„° ë©ˆì¶”ê¸°
             animator.enabled = false;
         }
      
 
     }
 
-    void OnMouseDown() // Å¬¸¯ÇßÀ» ¶§
+    void OnMouseDown() // í´ë¦­í–ˆì„ ë•Œ
     {
         if (GameMode.Instance.isGameOver != true)
         {
@@ -68,16 +77,21 @@ public class BugMovement : MonoBehaviour
                 IsDead = true;
                 moveSpeed = 0f;
 
-                // ¾Ö´Ï¸ŞÀÌÅÍ ÀüÈ¯
+                // ì• ë‹ˆë©”ì´í„° ì „í™˜
                 animator.SetBool("IsClicked", true);
-                // Å³Ä«¿îÆ® Ãß°¡
+                if(deathSFX != null)
+                {
+                    audioSource.PlayOneShot(deathSFX);
+                }
+                
+                // í‚¬ì¹´ìš´íŠ¸ ì¶”ê°€
                 GameMode.Instance.AddKill();
 
-                // ½ºÇÃ·¡½¬ ÀÌÆåÆ® »ı¼º
+                // ìŠ¤í”Œë˜ì‰¬ ì´í™íŠ¸ ìƒì„±
                 GameObject splash = Instantiate(splashPrefab, transform.position, Quaternion.identity);
-                Destroy(splash, 1.0f); // ¾Ö´Ï¸ŞÀÌ¼Ç ±æÀÌ¿¡ ¸Â°Ô Á¶Àı
+                Destroy(splash, 1.0f); // ì• ë‹ˆë©”ì´ì…˜ ê¸¸ì´ì— ë§ê²Œ ì¡°ì ˆ
 
-                // ¹ú·¹ ½ÃÃ¼µµ ÀÏÁ¤ ½Ã°£ µÚ »èÁ¦
+                // ë²Œë ˆ ì‹œì²´ë„ ì¼ì • ì‹œê°„ ë’¤ ì‚­ì œ
                 Destroy(gameObject, 1.0f);
             }
         }

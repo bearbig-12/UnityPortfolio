@@ -1,16 +1,16 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using TMPro;     // UI¿¡ TextMeshpro¸¦ »ç¿ëÇÒ ¶§ 
+using TMPro;     // UIì— TextMeshproë¥¼ ì‚¬ìš©í•  ë•Œ 
 
 
 public class GameMode : MonoBehaviour
 {
-    public static GameMode Instance; //  ½Ì±ÛÅæÀ¸·Î ´Ù¸¥ ½ºÅ©¸³Æ®¿¡¼­ Á¢±Ù °¡´É
+    public static GameMode Instance; //  ì‹±ê¸€í†¤ìœ¼ë¡œ ë‹¤ë¥¸ ìŠ¤í¬ë¦½íŠ¸ì—ì„œ ì ‘ê·¼ ê°€ëŠ¥
 
 
-    [Header("°ÔÀÓ ¼³Á¤")]
+    [Header("ê²Œì„ ì„¤ì •")]
     public float gameTime = 10f; 
     private float currentTime;
     public int killCount = 0;
@@ -20,14 +20,14 @@ public class GameMode : MonoBehaviour
     public TextMeshProUGUI timeText;
     public TextMeshProUGUI killText;
 
-    [Header("°ÔÀÓ¿À¹ö UI")]
+    [Header("ê²Œì„ì˜¤ë²„ UI")]
     public GameObject gameOverUI;
     public TextMeshProUGUI finalKillText;
 
 
     void Awake()
     {
-        // ½Ì±ÛÅæ ÆĞÅÏ
+        // ì‹±ê¸€í†¤ íŒ¨í„´
         if (Instance == null)
         {
             Instance = this;
@@ -54,7 +54,7 @@ public class GameMode : MonoBehaviour
         }
         currentTime -= Time.deltaTime;
 
-        // ½Ã°£ °¨¼Ò
+        // ì‹œê°„ ê°ì†Œ
         if (currentTime <= 0)
         {
             currentTime = 0;
@@ -82,8 +82,8 @@ public class GameMode : MonoBehaviour
     private void GameOver()
     {
         isGameOver = true;
-        Debug.Log("Game Over! ÃÑ Ã³Ä¡ ¼ö : " + killCount);
-        // TODO: °ÔÀÓ¿À¹ö UI ¶ç¿ì±â
+        Debug.Log("Game Over! ì´ ì²˜ì¹˜ ìˆ˜ : " + killCount);
+        // TODO: ê²Œì„ì˜¤ë²„ UI ë„ìš°ê¸°
         if(gameOverUI != null)
         {
             gameOverUI.SetActive(true);

@@ -125,6 +125,7 @@ MonoBehaviour:
   rotationAngle: 45
   rotationInterval: 0.5
   splashPrefab: {fileID: 3058172585183021766, guid: d6241c8489523d44e94edaa2138ebabb, type: 3}
+  deathSFX: {fileID: 8300000, guid: 7f51b2b048cd50940a411e64ffb100c2, type: 3}
 --- !u!65 &-4747986128166944377
 BoxCollider:
   m_ObjectHideFlags: 0
